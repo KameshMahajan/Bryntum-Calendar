@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Bryntum Calendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/lib/bryntum/build/calendar.stockholm.css" rel="stylesheet" />
+@* ar\wwwroot\lib\bryntum\build\calendar.stockholm.css *@
+<style>
+    .break-event {
+        background-image: repeating-linear-gradient( 45deg, #d3d3d3, #d3d3d3 10px, #c0c0c0 10px, #c0c0c0 20px );
+        color: black;
+        font-weight: bold;
+        font-size: 12px;
+        border: 1px solid #aaa;
+    }
+
+</style>
+
+
+<div id="calendarContainer" style="height: 800px;"></div>
+
+
+<script type="module">
+    import { Calendar } from '/lib/bryntum/build/calendar.module.js';
+
+    const calendar = new Calendar({
+            appendTo: 'calendarContainer',
+        crudManager: {
+            autoLoad: true,
+            autoSync: true,
+            transport: {
+                load: { url: '/Calendar/GetEvents' },
+                sync: { url: '/Calendar/SaveEvents' }
+            },
+            eventStore: {
+                storeId: 'events'
+            },
+            features: {
+                resourceFilter: true
+            },
+        },
+        modes: {
+            // Let's not show single day view
+            //day: null,
+            // week: {
+            //     dayStartTime: 9
+            // }
+        }
+});
+
+
+
+
+</script>
+
